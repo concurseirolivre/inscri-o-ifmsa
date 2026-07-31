@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processo Seletivo — IFMSA Brazil UFJF-GV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue: #0089CF;
+    --blue-deep: #045C8C;
+    --green: #4CAF50;
+    --green-deep: #1E7A46;
+    --yellow: #FFC72C;
+    --ink: #0E2A3A;
+    --paper: #FFFFFF;
+    --bg: #F4F8FA;
+    --line: rgba(4,92,140,0.14);
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    line-height:1.55;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Progresso de leitura no topo */
+  #progressBar{
+    position: fixed;
+    top:0; left:0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--green), var(--blue));
+    z-index: 999;
+    transition: width 0.15s ease-out;
+  }
+
+  /* Blobs decorativos flutuantes, nas cores do comitê */
+  .blob{
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .blob-1{
+    width: 340px; height: 340px;
+    background: radial-gradient(circle at 30% 30%, var(--green), transparent 70%);
+    top: -80px; left: -100px;
+    animation: float1 16s ease-in-out infinite;
+  }
+  .blob-2{
+    width: 300px; height: 300px;
+    background: radial-gradient(circle at 60% 40%, var(--blue), transparent 70%);
+    top: 380px; right: -120px;
+    animation: float2 20s ease-in-out infinite;
+  }
+  .blob-3{
+    width: 220px; height: 220px;
+    background: radial-gradient(circle at 50% 50%, var(--yellow), transparent 70%);
+    bottom: 200px; left: -60px;
+    animation: float1 18s ease-in-out infinite reverse;
+  }
+  @keyframes float1{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(30px,40px) scale(1.08); }
+  }
+  @keyframes float2{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(-25px,30px) scale(1.05); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .blob{ animation: none !important; }
+    html{ scroll-behavior: auto; }
+  }
+
+  .wrap{ max-width: 720px; margin: 0 auto; padding: 48px 24px 100px; position: relative; z-index: 1; }
+
+  header{ margin-bottom: 36px; }
+  .logo-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom: 26px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+  .logo-row img{ height: 60px; width:auto; }
+
+  .eyebrow{
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green-deep);
+    font-weight: 700;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.1s forwards;
+  }
+  h1{
+    font-family: 'Baloo 2', 'Inter', sans-serif;
+    font-size: clamp(28px, 5.5vw, 42px);
+    margin: 0 0 14px;
+    color: var(--blue-deep);
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.18s forwards;
+  }
+  .lede{
+    font-size: 15.5px;
+    color: #375166;
+    max-width: 58ch;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.26s forwards;
+  }
+  .welcome-note{
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: #fff;
+    border-left: 3px solid var(--green);
+    border-radius: 6px;
+    font-size: 14px;
+    color: #375166;
+    box-shadow: 0 4px 14px rgba(14,42,58,0.05);
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.34s forwards;
+  }
+
+  @keyframes fadeUp{
+    from{ opacity: 0; transform: translateY(14px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  .no-paste-flag{
+    display:inline-block;
+    font-size: 12px;
+    background: var(--blue-deep);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-top: 18px;
+    font-weight: 700;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.42s forwards;
+  }
+
+  .contact-bar{
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: #375166;
+    display:flex;
+    flex-wrap: wrap;
+    gap: 6px 22px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.5s forwards;
+  }
+  .contact-bar strong{ color: var(--blue-deep); }
+
+  section.block{
+    border-top: 1px solid var(--line);
+    padding: 32px 28px;
+    background: var(--paper);
+    border-radius: 14px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 10px rgba(14,42,58,0.03);
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.25s ease;
+  }
+  section.block.in-view{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  section.block:hover{
+    box-shadow: 0 8px 24px rgba(14,42,58,0.08);
+  }
+
+  .qnum{
+    font-size: 12px;
+    color: var(--green-deep);
+    letter-spacing: 0.08em;
+    font-weight: 800;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .qnum .dot{
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    display: inline-block;
+  }
+  label.qtext{
+    display:block;
+    font-size: 18.5px;
+    color: var(--ink);
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .hint{
+    font-size: 13.5px;
+    color: #55707F;
+    margin-bottom: 14px;
+  }
+
+  input[type=text], input[type=email], input[type=url], input[type=tel], textarea{
+    width:100%;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    padding: 12px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    background: #fbfdfe;
+    color: var(--ink);
+    resize: vertical;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  textarea{ min-height: 110px; }
+  input:hover, textarea:hover{ border-color: rgba(0,137,207,0.4); }
+  input:focus, textarea:focus{
+    outline: none;
+    border-color: var(--blue);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(0,137,207,0.12);
+  }
+
+  .row2{ display:flex; gap:16px; flex-wrap: wrap; }
+  .row2 > div{ flex:1; min-width: 220px; }
+
+  .counter{
+    font-size: 12px;
+    color: #7C93A0;
+    text-align: right;
+    margin-top: 6px;
+    transition: color 0.2s ease;
+  }
+  .counter.over{ color: var(--blue-deep); font-weight:800; }
+
+  .paste-warning{
+    display:none;
+    font-size: 12.5px;
+    color: var(--blue-deep);
+    margin-top: 8px;
+    font-weight: 700;
+    animation: shake 0.4s ease;
+  }
+  @keyframes shake{
+    0%,100%{ transform: translateX(0); }
+    25%{ transform: translateX(-4px); }
+    75%{ transform: translateX(4px); }
+  }
+
+  .radio-group{
+    display:flex; flex-direction:column; gap:10px;
+    font-size: 15px;
+  }
+  .radio-group label{
+    display:flex; align-items:center; gap:12px;
+    cursor:pointer;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1.5px solid var(--line);
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+  }
+  .radio-group label:hover{
+    border-color: var(--blue);
+    background: #f7fbfd;
+  }
+  .radio-group input{ accent-color: var(--blue); width:16px; height:16px; flex-shrink: 0; }
+  .radio-group label:has(input:checked){
+    border-color: var(--green);
+    background: #f2faf3;
+  }
+
+  button[type=submit]{
+    font-size: 15.5px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 6px 18px rgba(0,137,207,0.28);
+  }
+  button[type=submit]:hover{
+    background: var(--blue-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0,137,207,0.34);
+  }
+  button[type=submit]:active{ transform: translateY(0); }
+
+  footer{
+    margin-top: 40px;
+    font-size: 12.5px;
+    color: #7C93A0;
+  }
+  footer a{ color: var(--blue-deep); }
+</style>
+</head>
+<body>
+
+<div id="progressBar"></div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="wrap">
+
+  <header>
+    <div class="logo-row">
+      <img src="ifmsa-logo.png" alt="IFMSA Brazil UFJF-GV">
+    </div>
+    <div class="eyebrow">Comitê Local UFJF-GV</div>
+    <h1>Vem fazer parte do comitê 💚</h1>
+    <p class="lede">Sem carta de motivação. Em vez disso, queremos ver como você pensa e executa. Preencha com suas próprias palavras — todos os campos de texto bloqueiam colar (Ctrl+V / Cmd+V).</p>
+    <div class="welcome-note">
+      Sabemos que processo seletivo pode dar um friozinho na barriga — mas aqui não tem pegadinha. Queremos te conhecer de verdade, do seu jeito. Vá com calma, responda com sinceridade, e bora construir algo juntos.
+    </div>
+    <span class="no-paste-flag">⚠ Colar está desativado neste formulário</span>
+    <div class="contact-bar">
+      <span><strong>Instagram:</strong> @ifmsabrazil_ufjfgv</span>
+      <span><strong>Dúvidas:</strong> ifmsabrazilufjfgv@gmail.com</span>
+    </div>
+  </header>
+
+  <form name="selecao-ifmsa-ufjfgv" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="mainForm">
+    <input type="hidden" name="form-name" value="selecao-ifmsa-ufjfgv" />
+    <p style="display:none">
+      <label>Não preencha isto: <input name="bot-field" /></label>
+    </p>
+
+    <section class="block">
+      <div class="qnum"><span class="dot"></span>01 — IDENTIFICAÇÃO</div>
+      <label class="qtext">Dados básicos</label>
+      <div class="hint">Nome, período do curso e um contato para retorno.</div>
+      <div class="row2">
+        <div>
+          <input type="text" name="nome" placeholder="Nome completo" required class="no-paste">
+        </div>
+        <div>
+          <input type="text" name="periodo" placeholder="Período atual" required class="no-paste">
+        </div>
+      </div>
+      <div class="row2" style="margin-top:12px;">
+        <div>
+          <input type="email" name="email" placeholder="E-mail" required class="no-paste">
+        </div>
+        <div>
+          <input type="tel" name="whatsapp" placeholder="WhatsApp" required class="no-paste">
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="qnum"><span class="dot"></span>02 — O DESAFIO</div>
+      <label class="qtext" for="desafio">Escolha uma frente do comitê e diga o que faria nos primeiros 30 dias como responsável por ela.</label>
+      <div class="hint">
+        O comitê enfrenta hoje alguns desafios reais — escolha um e proponha uma direção concreta, não uma ideia genérica:<br><br>
+        <strong>a)</strong> baixo engajamento em atividades de gênero e empoderamento feminino (ex.: eventos como o "Fight Like a Girl" têm dificuldade de manter público recorrente);<br>
+        <strong>b)</strong> dificuldade de captar patrocínio ou parceria institucional para viabilizar eventos;<br>
+        <strong>c)</strong> baixa visibilidade do comitê nas redes sociais, com pouco alcance orgânico fora do próprio curso.<br><br>
+        Queremos ver raciocínio prático: o que você faria primeiro, com quem falaria, o que seria mensurável em 30 dias. Máximo 150 palavras — sem colar, sem enrolação.
+      </div>
+      <textarea id="desafio" name="desafio_30dias" maxlength="1300" required class="no-paste" placeholder="Escreva aqui..."></textarea>
+      <div class="counter" id="counterWords">0 / 150 palavras</div>
+    </section>
+
+    <section class="block">
+      <div class="qnum"><span class="dot"></span>03 — DISPONIBILIDADE</div>
+      <label class="qtext">Você consegue se comprometer com o ritmo do comitê?</label>
+      <div class="hint">As reuniões são mensais, e cada participante organiza ou ajuda a organizar pelo menos uma atividade por semestre. Sem meio-termo confortável — seja honesto sobre sua rotina.</div>
+      <div class="radio-group">
+        <label><input type="radio" name="disponibilidade" value="Sim, reunião mensal + 1 atividade/semestre" required> Sim, consigo participar das reuniões mensais e assumir a organização de pelo menos 1 atividade por semestre</label>
+        <label><input type="radio" name="disponibilidade" value="Parcial, preciso ajustar horário"> Consigo me organizar, mas o horário da reunião mensal pode precisar de ajuste</label>
+        <label><input type="radio" name="disponibilidade" value="Não tenho certeza ainda"> Ainda não tenho certeza da minha disponibilidade este semestre</label>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="qnum"><span class="dot"></span>04 — VOCÊ NOS ACOMPANHA?</div>
+      <label class="qtext" for="ultimopost">Qual foi a última atividade ou post do nosso Instagram, e o que você achou dela?</label>
+      <div class="hint">Sem consulta durante o preenchimento — queremos saber se você já segue o comitê de verdade (@ifmsabrazil_ufjfgv).</div>
+      <textarea id="ultimopost" name="ultimo_post_observado" maxlength="600" required class="no-paste" placeholder="Escreva aqui..."></textarea>
+    </section>
+
+    <section class="block">
+      <div class="qnum"><span class="dot"></span>05 — ATIVIDADE FICTÍCIA</div>
+      <label class="qtext">Crie um post (imagem ou carrossel) divulgando uma atividade fictícia do comitê e cole o link.</label>
+      <div class="hint">Pode ser feito no Canva, Instagram Stories ou qualquer ferramenta. Publique como rascunho/privado ou hospede a imagem em algum link público e cole o link abaixo (colar está liberado neste campo).</div>
+      <input type="url" name="link_post_ficticio" placeholder="https://..." required>
+    </section>
+
+    <button type="submit">Enviar inscrição 🚀</button>
+  </form>
+
+  <footer>
+    IFMSA Brazil — Comitê Local UFJF-GV. Suas respostas serão avaliadas pela coordenação local.<br>
+    Dúvidas: <a href="mailto:ifmsabrazilufjfgv@gmail.com">ifmsabrazilufjfgv@gmail.com</a> · Instagram: <a href="https://instagram.com/ifmsabrazil_ufjfgv" target="_blank">@ifmsabrazil_ufjfgv</a>
+  </footer>
+</div>
+
+<script>
+  // Barra de progresso de leitura no topo
+  window.addEventListener('scroll', function(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progressBar').style.width = pct + '%';
+  });
+
+  // Revela cada seção suavemente conforme entra na tela
+  const sections = document.querySelectorAll('section.block');
+  const observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  sections.forEach(function(s){ observer.observe(s); });
+
+  // Bloqueia colar (Ctrl+V, Cmd+V, clique direito > colar, drag-and-drop de texto) em todos os campos marcados
+  document.querySelectorAll('.no-paste').forEach(function(el){
+    el.addEventListener('paste', function(e){
+      e.preventDefault();
+      showPasteWarning(el);
+    });
+    el.addEventListener('drop', function(e){
+      e.preventDefault();
+    });
+    el.addEventListener('contextmenu', function(e){
+      e.preventDefault();
+    });
+  });
+
+  function showPasteWarning(el){
+    let warn = el.parentElement.querySelector('.paste-warning');
+    if(!warn){
+      warn = document.createElement('div');
+      warn.className = 'paste-warning';
+      el.parentElement.appendChild(warn);
+    }
+    warn.textContent = '⚠ Colar está desativado — escreva com suas próprias palavras.';
+    warn.style.display = 'block';
+    // reinicia a animação de "shake"
+    warn.style.animation = 'none';
+    void warn.offsetWidth;
+    warn.style.animation = null;
+    setTimeout(function(){ warn.style.display = 'none'; }, 3500);
+  }
+
+  // Contador de palavras no campo do desafio (limite real de 150 palavras)
+  const desafio = document.getElementById('desafio');
+  const counter = document.getElementById('counterWords');
+  desafio.addEventListener('input', function(){
+    const words = desafio.value.trim().split(/\s+/).filter(Boolean);
+    const count = words.length;
+    counter.textContent = count + ' / 150 palavras';
+    counter.classList.toggle('over', count > 150);
+  });
+</script>
+
+</body>
+</html>
